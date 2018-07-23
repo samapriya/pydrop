@@ -17,10 +17,10 @@ def readme():
     with open('README.md') as f:
         return f.read()
 setuptools.setup(
-    name='pydo',
+    name='pydrop',
     version='0.0.1',
     packages=find_packages(),
-    url='https://github.com/samapriya/pydo',
+    url='https://github.com/samapriya/pydrop',
     install_requires=['requests>=2.19.1'],
     license='Apache 2.0',
     long_description=open('README.txt').read(),
@@ -42,7 +42,7 @@ setuptools.setup(
     description='Python Client for Digital Ocean Droplets',
     entry_points={
         'console_scripts': [
-            'pydo=pydo.pydo:main',
+            'pydrop=pydrop.pydrop:main',
         ],
     },
 )
