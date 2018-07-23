@@ -59,10 +59,10 @@ optional arguments:
 To obtain help for a specific functionality, simply call it with _help_ switch, e.g.: `pydrop dropinfo -h`. If you didn't install pydrop, then you can run it just by going to *pydrop* directory and running `python pydrop.py [arguments go here]`
 
 ## Digital Ocean Python CLI Tools
-The Planet Toolsets consists of tools required to access control and download planet labs assets (PlanetScope and RapidEye OrthoTiles) as well as parse metadata in a tabular form which maybe required by other applications.
+The Digital Ocean Python CLI and tools setup contains minimal CLI in python to perform basic actions on droplets along with query and analyze your DO enviroment quickly.
 
 ### Digital Ocean Key
-This tool basically asks you to input your Planet API Key using a password prompt this is then used for all subsequent tools. This tool now includes an option for a quiet authentication using the API key incase it is unable to invoke an interactive environment such as in Google colaboratory.
+This tool basically asks you to input your Digital Ocean API Key using a password prompt this is then used for all subsequent tools. This tool now includes an option for a quiet authentication using the API key incase it is unable to invoke an interactive environment such as in Google colaboratory.
 
 ```
 usage: pydrop dokey [-h] [--key KEY]
@@ -77,7 +77,7 @@ Optional named arguments:
 If using on a private machine the Key is saved as a csv file for all future runs of the tool.
 
 ### Droplets Info
-The aoijson tab within the toolset allows you to create filters and structure your existing input file to that which can be used with Planet's API. The tool requires inputs with start and end date, along with cloud cover. You can choose from multiple input files types such as KML, Zipped Shapefile, GeoJSON, WKT or even Landsat Tiles based on PathRow numbers. The geo option asks you to select existing files which will be converted into formatted JSON file called aoi.json. If using WRS as an option just type in the 6 digit PathRow combination and it will create a json file for you.
+The droplets info tool prints summary info about all your droplets. You can choose to narrow it down further using a droplet tag so only those droplets with speific tags will be printed. Since I wanted the ability of including price summaries, I have included prices summaries.
 
 ```
 usage: pydrop dropinfo [-h] [--tag TAG]
@@ -90,7 +90,7 @@ Optional named arguments:
 ```
 
 ### Droplets Delete
-It is not possible to call the tool on an idlist instead of using a JSON , this option is useful when you want when you want to use the same item ID with different asset types quickly. For example the item ID for PSScene4Band analytic and PSScene4Band analytic_sr is the same. This is a quicker way to parse different asset type and create an IDlist for activation and download.
+This deletes a droplet and you can specify either the droplet name or id. Incase you don't remember the name or id, just run the tool without any arguments and it will list out all droplet id(s) and names.
 ```
 usage: pydrop dropdelete [-h] [--id ID] [--name NAME]
 
@@ -103,7 +103,7 @@ Optional named arguments:
 ```
 
 ### Droplets Action
-The activatepl tab allows the users to either check or activate planet assets, in this case only PSOrthoTile and REOrthoTile are supported because I was only interested in these two asset types for my work but can be easily extended to other asset types. This tool makes use of an existing json file sturctured for use within Planet API or the aoi.json file created earlier
+The droplet action tool was designed to achieve and have more control over individual droplet actions and I included actions such as shutdown, power off, power on and rename. Just like the droplet delete tool, this tool will print the name and id of all droplets if no arguments are passed and you can then choose the one on which to perform the action.
 
 ```
 usage: pydrop dropaction [-h] [--id ID] [--name NAME] [--action ACTION]
