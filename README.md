@@ -33,6 +33,7 @@ For linux use sudo.
 
 Installation is an optional step; the application can be also run directly by executing pydrop.py script. The advantage of having it installed is being able to execute ppipe as any command line tool. I recommend installation within virtual environment. If you don't want to install, browse into the pydrop folder and try ```python pydrop.py``` to get to the same result.
 
+![cli](/images/pydrop.gif)
 ## Getting started
 
 As usual, to print help:
