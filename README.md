@@ -1,5 +1,5 @@
 # pydrop: Minimal Python Client for Digital Ocean Droplets
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1319610.svg)](https://doi.org/10.5281/zenodo.1319610)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1323340.svg)](https://doi.org/10.5281/zenodo.1323340)
 
 This is a minimal tool designed to interact with the Digital Ocean API. This does not translate all functionalities of the API but is a template I created for some of the most common operations I could perform. New tools will be added in the future as I familiarize myself further with the API structure and use as a student. For now this tool allows you to summarize all your droplets running, including and necessarily a price summary to keep tabs on your droplets monthly and hourly rates. The tool also allows you to seach by tags, delete a drop or perfrom actions such as start, stop or shutdown a droplet.
 
@@ -10,6 +10,7 @@ This is a minimal tool designed to interact with the Digital Ocean API. This doe
 	* [Digital Ocean Key](#digital-ocean-key)
     * [Droplets Info](#droplets-info)
     * [Droplets Delete](#droplets-delete)
+    * [Droplets Reset](#droplets-reset)
     * [Droplets Action](#droplets-action)
 
 ## Installation
@@ -132,4 +133,10 @@ Optional named arguments:
                    shutdown"|power_on="power on"|rename="rename
   --rename RENAME  Incase you are renaming droplet you can provide new name
 ```
+
+### Changelog
+
+**v0.0.3**
+* Now checks for keys and auto initializes if missing
+* Includes password reset tool
 
