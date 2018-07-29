@@ -1,5 +1,5 @@
 # pydrop: Minimal Python Client for Digital Ocean Droplets
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1319799.svg)](https://doi.org/10.5281/zenodo.1319799)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1319610.svg)](https://doi.org/10.5281/zenodo.1319610)
 
 This is a minimal tool designed to interact with the Digital Ocean API. This does not translate all functionalities of the API but is a template I created for some of the most common operations I could perform. New tools will be added in the future as I familiarize myself further with the API structure and use as a student. For now this tool allows you to summarize all your droplets running, including and necessarily a price summary to keep tabs on your droplets monthly and hourly rates. The tool also allows you to seach by tags, delete a drop or perfrom actions such as start, stop or shutdown a droplet.
 
@@ -102,6 +102,19 @@ Optional named arguments:
   --name NAME  Use an image name to delete droplet
 ```
 
+### Droplets Reset
+This resets the password of a droplet and you can specify either the droplet name or id. Incase you don't remember the name or id, just run the tool without any arguments and it will list out all droplet id(s) and names.
+```
+usage: pydrop dropreset [-h] [--id ID] [--name NAME]
+
+optional arguments:
+  -h, --help   show this help message and exit
+
+Optional named arguments:
+  --id ID      Use an image ID to delete droplet
+  --name NAME  Use an image name to delete droplet
+```
+
 ### Droplets Action
 The droplet action tool was designed to achieve and have more control over individual droplet actions and I included actions such as shutdown, power off, power on and rename. Just like the droplet delete tool, this tool will print the name and id of all droplets if no arguments are passed and you can then choose the one on which to perform the action.
 
@@ -119,3 +132,4 @@ Optional named arguments:
                    shutdown"|power_on="power on"|rename="rename
   --rename RENAME  Incase you are renaming droplet you can provide new name
 ```
+

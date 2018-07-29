@@ -1,8 +1,4 @@
-﻿========================================================
-pydrop: Minimal Python Client for Digital Ocean Droplets
-========================================================
-
-This is a minimal tool designed to interact with the Digital Ocean API.
+﻿This is a minimal tool designed to interact with the Digital Ocean API.
 This does not translate all functionalities of the API but is a template
 I created for some of the most common operations I could perform. New
 tools will be added in the future as I familiarize myself further with
@@ -142,6 +138,24 @@ any arguments and it will list out all droplet id(s) and names.
 ::
 
    usage: pydrop dropdelete [-h] [--id ID] [--name NAME]
+
+   optional arguments:
+     -h, --help   show this help message and exit
+
+   Optional named arguments:
+     --id ID      Use an image ID to delete droplet
+     --name NAME  Use an image name to delete droplet
+
+Droplets Password Reset
+~~~~~~~~~~~~~~~~~~~~~~~
+
+This resets the password for a droplet and you can specify either the droplet name or
+id. Incase you don’t remember the name or id, just run the tool without
+any arguments and it will list out all droplet id(s) and names.
+
+::
+
+   usage: pydrop dropreset [-h] [--id ID] [--name NAME]
 
    optional arguments:
      -h, --help   show this help message and exit
