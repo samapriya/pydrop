@@ -1,5 +1,8 @@
 # pydrop: Minimal Python Client for Digital Ocean Droplets
+
+[![PyPI version](https://badge.fury.io/py/pydrop.svg)](https://badge.fury.io/py/pydrop)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1323340.svg)](https://doi.org/10.5281/zenodo.1323340)
+[![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/samapriya)
 
 This is a minimal tool designed to interact with the Digital Ocean API. This does not translate all functionalities of the API but is a template I created for some of the most common operations I could perform. New tools will be added in the future as I familiarize myself further with the API structure and use as a student. For now this tool allows you to summarize all your droplets running, including and necessarily a price summary to keep tabs on your droplets monthly and hourly rates. The tool also allows you to seach by tags, delete a drop or perfrom actions such as start, stop or shutdown a droplet.
 
