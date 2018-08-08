@@ -2,7 +2,8 @@ import requests
 import json
 import csv
 import os
-
+import arrow
+import datetime
 def dropletread(tag=None):
     if tag is not None:
         params = (
@@ -68,10 +69,19 @@ def dropletread(tag=None):
         print('Price Summary')
         price_monthly=0
         price_hourly=0
+        price=[]
         for items in json_data['droplets']:
             price_monthly=price_monthly+float(items['size']['price_monthly'])
             price_hourly=price_hourly+float(items['size']['price_hourly'])
+            diff=(datetime.datetime.now().date()-arrow.get(str(items['created_at']).split('T')[0],'YYYY-MM-DD').date())
+            days,seconds=diff.days,diff.seconds
+            hours=days*24+seconds/3600
+            h=float(items['size']['price_hourly'])*hours
+            price.append(h)
         print('Total Price Monthly: $'+str(price_monthly))
         print('Total Price Hourly: $'+str(price_hourly))
+        print('')
+        print('Based on active droplets')
+        print('Estimated Price till date: $'+str(sum(price)))
 #dropletread()
 #dropletread(tag="dev")
