@@ -139,6 +139,9 @@ Optional named arguments:
 
 ### Changelog
 
+**v0.0.4**
+* Now calculates total cost till date based on active droplets
+
 **v0.0.3**
 * Now checks for keys and auto initializes if missing
 * Includes password reset tool
