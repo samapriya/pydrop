@@ -11,10 +11,17 @@ This is a minimal tool designed to interact with the Digital Ocean API. This doe
 * [Getting started](#getting-started)
 * [Digital Ocean Python CLI Tools](#digital-ocean-python-cli-tools)
 	* [Digital Ocean Key](#digital-ocean-key)
+    * [Account Info](#account-info)
     * [Droplets Info](#droplets-info)
+    * [Volume Info](#volume-info)
+    * [Snapshot Info](#snapshot-info)
+    * [ssh read](#ssh-read)
+    * [ssh post](#ssh-post)
+    * [ssh delete](#ssh-delete)
     * [Droplets Delete](#droplets-delete)
     * [Droplets Reset](#droplets-reset)
     * [Droplets Action](#droplets-action)
+
 
 ## Installation
 This assumes that you have native python & pip installed in your system, you can test this by going to the terminal (or windows command prompt) and trying
@@ -38,22 +45,32 @@ For linux use sudo.
 
 Installation is an optional step; the application can be also run directly by executing pydrop.py script. The advantage of having it installed is being able to execute ppipe as any command line tool. I recommend installation within virtual environment. If you don't want to install, browse into the pydrop folder and try ```python pydrop.py``` to get to the same result.
 
-![cli](/images/pydrop.gif)
+![pydrop](https://user-images.githubusercontent.com/25802584/59007392-33a91600-87f4-11e9-867c-22131bb98d32.gif)
+
 ## Getting started
 
 As usual, to print help:
 
 ```
-usage: pydrop [-h] {dokey,dropinfo,dropdelete,dropaction} ...
+usage: pydrop [-h]
+              {dokey,accinfo,dropinfo,volinfo,snapinfo,sshread,sshpost,sshdelete,dropaction,dropdelete,dropreset}
+              ...
 
 Digital Ocean API Python CLI
 
 positional arguments:
-  {dokey,dropinfo,dropdelete,dropaction}
+  {dokey,accinfo,dropinfo,volinfo,snapinfo,sshread,sshpost,sshdelete,dropaction,dropdelete,dropreset}
     dokey               Enter your Digital Ocean API Key
+    accinfo             Prints your account info
     dropinfo            Prints information about all your droplets
-    dropdelete          Permanently deletes the droplet
+    volinfo             Prints information about all your volumes
+    snapinfo            Prints information about all your snapshots
+    sshread             Prints information about your ssh keys
+    sshpost             Adds new ssh keys to account
+    sshdelete           Deletes a ssh keys from account
     dropaction          Performs an action on your droplets
+    dropdelete          Permanently deletes the droplet
+    dropreset           Resets password for the droplet
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -81,6 +98,13 @@ Optional named arguments:
 If using on a private machine the Key is saved as a csv file for all future runs of the tool.
 
 ### Droplets Info
+This tool prints account info about your account including, droplet and volume limit, your email, and so on. The setup would be
+
+```
+pydrop accinfo
+```
+
+### Droplets Info
 The droplets info tool prints summary info about all your droplets. You can choose to narrow it down further using a droplet tag so only those droplets with speific tags will be printed. Since I wanted the ability of including price summaries, I have included prices summaries.
 
 ```
@@ -91,6 +115,60 @@ optional arguments:
 
 Optional named arguments:
   --tag TAG   Use a tag to refine your search
+```
+
+### Volume Info
+As the name suggest incase you have any volumes attched, this will print information about the volumes attached. If no volumes exists, it will print that and exit out. The setup would be
+
+```
+pydrop volinfo
+```
+
+### Snapshot Info
+This will print information about any existing snapshot that you might have. Setup again is
+
+```
+pydrop snapinfo
+```
+
+### ssh read
+This setup will simply read all your ssh keys and print them including the key, the id , name and so on. Setup would be
+
+```
+pydrop sshread
+```
+
+### ssh post
+This will allow you to add a new ssh key to your existing ssh keys. The required inputs are name and the key
+
+```
+usage: pydrop sshpost [-h] --name NAME --keyfile KEYFILE
+
+optional arguments:
+  -h, --help         show this help message and exit
+
+Required named arguments.:
+  --name NAME        name for ssh key
+  --keyfile KEYFILE  file with ssh key
+```
+
+### ssh delete
+This will delete an ssh key, if no key id is provided, the tool first prints out all the ssh keys and their ids to choose from. Setup with a keyid would be simply
+
+```
+pydrop sshdelete
+```
+
+The above command will essentially call a sshread function to get you the key ids. If you know the key id the command then takes that as an input
+
+```
+usage: pydrop sshdelete [-h] [--keyid KEYID]
+
+optional arguments:
+  -h, --help     show this help message and exit
+
+Optional named arguments:
+  --keyid KEYID  ssh key id
 ```
 
 ### Droplets Delete
@@ -138,6 +216,10 @@ Optional named arguments:
 ```
 
 ### Changelog
+
+**v0.0.5**
+* Added additional tools like sshfunctions, volume and snapshot reads
+* General improvements to overall tool
 
 **v0.0.4**
 * Now calculates total cost till date based on active droplets

@@ -18,12 +18,13 @@ def readme():
         return f.read()
 setuptools.setup(
     name='pydrop',
-    version='0.0.4',
+    version='0.0.5',
     packages=find_packages(),
     url='https://github.com/samapriya/pydrop',
     install_requires=['requests>=2.19.1','arrow>=0.12.1'],
     license='Apache 2.0',
-    long_description=open('README.txt').read(),
+    long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     classifiers=(
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
