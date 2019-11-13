@@ -306,7 +306,7 @@ def dropdelete(idn=None,name=None):
 
 
 #Common droplet actions
-def doaction(action=None,rname=None,name=None,idn=None):
+def doaction(action=None,rname=None,name=None,idn=None,sname=None):
     if action is None:
         response = requests.get('https://api.digitalocean.com/v2/droplets', headers=headers)
         json_data = json.loads(response.text)
@@ -315,17 +315,25 @@ def doaction(action=None,rname=None,name=None,idn=None):
     elif action is not None and idn is not None:
         data = {"type":""}
         data["type"]=action
-        if action==shutdown:
+        if action=='shutdown':
             url='https://api.digitalocean.com/v2/droplets/'+str(idn)+'/actions'
-        if action==power_off:
+        elif action=='power_off':
             url='https://api.digitalocean.com/v2/droplets/'+str(idn)+'/actions'
-        if action==power_on:
+        elif action=='power_on':
             url='https://api.digitalocean.com/v2/droplets/'+str(idn)+'/actions'
-        if action==rename and rname is not None:
+        elif action=='rename' and rname is not None:
             url='https://api.digitalocean.com/v2/droplets/'+str(idn)+'/actions'
             data = {"type":"","name":""}
             data["type"]=action
             data["name"]=rname
+        elif action=='snapshot' and sname is not None:
+            url='https://api.digitalocean.com/v2/droplets/'+str(idn)+'/actions'
+            data = {"type":"","name":""}
+            data["type"]=action
+            data["name"]=sname
+        else:
+            print('Unkown action type '+str(action))
+            sys.exit()
         response = requests.post(url, headers=headers, data=json.dumps(data))
         #print(response.status_code)
         if response.status_code==201:
@@ -354,6 +362,11 @@ def doaction(action=None,rname=None,name=None,idn=None):
                     data = {"type":"","name":""}
                     data["type"]=str(action)
                     data["name"]=rname
+                elif action=='snapshot' and sname is not None:
+                    url='https://api.digitalocean.com/v2/droplets/'+str(idn)+'/actions'
+                    data = {"type":"","name":""}
+                    data["type"]=action
+                    data["name"]=sname
                 else:
                     print('Unkown action type '+str(action))
                     sys.exit()
@@ -366,17 +379,6 @@ def doaction(action=None,rname=None,name=None,idn=None):
                     print('Action Type '+str(json_data['action']['type']))
                 else:
                     print('Failed with error code '+str(response.status_code))
-
-#doaction(action=None,rname=None,name=None,idn=None)
-#dropdelete(idn=None,name=None)
-#sshpost(name, filename)
-#dropletread()
-#dropletread(tag="dev")
-#sshread()
-#account_info()
-#sshdelete(keyid=None)
-#snapshot()
-#dropresetidn=None,name=None)
 
 def do_key_from_parser(args):
     do_key_entry(key=args.key)
@@ -409,7 +411,7 @@ def dropreset_from_parser(args):
     dropreset(idn=args.id,name=args.name)
 
 def dropaction_from_parser(args):
-    doaction(idn=args.id,name=args.name,action=args.action,rname=args.rename)
+    doaction(idn=args.id,name=args.name,action=args.action,rname=args.rename,sname=args.sname)
 
 def main(args=None):
     parser = argparse.ArgumentParser(description='Digital Ocean API Python CLI')
@@ -452,8 +454,9 @@ def main(args=None):
     optional_named = parser_doaction.add_argument_group('Optional named arguments')
     optional_named.add_argument('--id', help='Use an image ID to perform action',default=None)
     optional_named.add_argument('--name', help='Use an image name to perform action',default=None)
-    optional_named.add_argument('--action', help='Action type |shutdown="graceful shutdown"|power_off="hard shutdown"|power_on="power on"|rename="rename',default=None)
+    optional_named.add_argument('--action', help='Action type |shutdown="graceful shutdown"|power_off="hard shutdown"|power_on="power on"|rename="rename"|reboot="reboot"|snapshot="snapshot"',default=None)
     optional_named.add_argument('--rename', help='Incase you are renaming droplet you can provide new name',default=None)
+    optional_named.add_argument('--snapname', help='Name of droplet snapshot',default=None)
     parser_doaction.set_defaults(func=dropaction_from_parser)
 
     parser_dropdelete = subparsers.add_parser('dropdelete', help='Permanently deletes the droplet ')
@@ -470,7 +473,6 @@ def main(args=None):
 
     args = parser.parse_args()
 
-    #ee.Initialize()
     args.func(args)
 
 if __name__ == '__main__':

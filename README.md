@@ -217,6 +217,10 @@ Optional named arguments:
 
 ### Changelog
 
+**v0.0.6**
+* Fixed action tool for id
+* Added reboot and snapshot actions.
+
 **v0.0.5**
 * Added additional tools like sshfunctions, volume and snapshot reads
 * General improvements to overall tool
